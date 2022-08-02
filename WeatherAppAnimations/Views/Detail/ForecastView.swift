@@ -13,8 +13,30 @@ struct ForecastView: View {
     @State private var selection = 0
     var body: some View {
         ScrollView{
-            VStack(spacing: 10) {
+            VStack(spacing: 0) {
                 SegmentedControl(selection: $selection)
+                //MARK: Forecast Cards
+                GeometryReader { geo in
+                    ScrollView(.horizontal, showsIndicators: false){
+                        HStack(spacing: 12){
+                            if selection == 0 {
+                                ForEach(Forecast.hourly) { forecast in
+                                    ForecastCard(forecast: forecast, forecastPeriod: .hourly)
+                                }
+                                .transition(.offset(x: -geo.size.width))
+                            } else {
+                                ForEach(Forecast.weekly) { forecast in
+                                    ForecastCard(forecast: forecast, forecastPeriod: .weekly)
+                                    
+                                }
+                                .transition(.offset(x: geo.size.width))
+                            }
+                        }
+                        .padding(.vertical, 20)
+                    }
+                        .padding(.horizontal, 20)
+                }
+                
             }
         }
         .backgroundBlur(radius: 25, opaque: true)

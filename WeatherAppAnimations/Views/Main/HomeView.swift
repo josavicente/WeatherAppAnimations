@@ -40,8 +40,8 @@ struct HomeView: View {
                     
                     Image("Background")
                         .resizable()
-                        .ignoresSafeArea()
                         .offset(y: -bottomSheetTranslationProrated * imageOffset)
+                        .ignoresSafeArea()
                     
                     // MARK: House
                     Image("House")
